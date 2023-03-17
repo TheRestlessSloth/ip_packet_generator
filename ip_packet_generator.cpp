@@ -1,6 +1,11 @@
 ﻿// ip_packet_generator.cpp: определяет точку входа для приложения.
 //
 
+
+//todo: реализовать протокол передачи оптической информации
+//todo: доделать UDP протокол для ip пакетов
+//todo: написать API для подводного аппарата для передачи акустических и оптических данных 
+
 #include <Winsock2.h>
 #include <Windows.h>
 #include <iostream>
@@ -19,6 +24,7 @@ using namespace std;
 
 class ip_packet
 {
+	//todo: 
 private:
 	uint8 ver = 0x04;
 	uint8 h_length = 0x00;
