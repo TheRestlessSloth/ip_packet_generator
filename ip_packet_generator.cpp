@@ -6,11 +6,6 @@
 //todo: доделать UDP протокол для ip пакетов
 //todo: написать API для подводного аппарата для передачи акустических и оптических данных 
 
-#include <Winsock2.h>
-#include <Windows.h>
-#include <iostream>
-#include<string>
-
 #pragma comment(lib, "Ws2_32.lib")
 
 #define SIO_RCVALL 0x98000001
@@ -42,7 +37,7 @@ private:
 	string ip_src_str = iparr_to_str(ip_src);
 	string ip_dest_str = iparr_to_str(ip_src);
 
-	string DATA = "Hey-hey-heeeey!";
+	string DATA = "test data for Konstantin Georgievich";
 public:
 
 	string iparr_to_str(unsigned char int_ip[])
@@ -88,16 +83,41 @@ public:
 	{
 		cout << "data = " << this->DATA << "\n";
 	}
+
+	void setData(string data)
+	{
+		this->DATA = data;
+	}
+
+	string getData()
+	{
+		return this->DATA;
+	}
+
+	bitarr ipPacket_bin()
+	{
+		bitarr a;
+		string ip_data = this->header() + this->getData();
+		std::string str = ip_data;
+		for (char const& c : str) {
+			std::cout << std::bitset<8>(c) << ' ';
+		}
+		return a;
+	}
 };
 
 int main()
 {
-	cout << "Hello CMake." << endl;
-
+	CDMA cdma;
+	cdma.generate_gold_sequence(0);
+	cdma.add_user();
 	ip_packet a;
-	cout << a.header() << endl;
 	a.ShowIPFields();
-	a.ShowIPData();
+	cout << "--------------------------------------\nBin data = ";
+	bitarr packet = a.ipPacket_bin();
+	packet.set(); //установка всех битов в 1, чтобы при XOR получить нулевой бит
+	bitarr encrypted_packet = cdma.encode_packet(packet); //шифрование IP пакета
+	bitarr decrypted_packet = cdma.decode_packet(encrypted_packet); //дешифрование IP пакета
+
 	return 0;
 }
-

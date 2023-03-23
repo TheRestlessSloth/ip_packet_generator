@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.8)
 project ("ip_packet_generator")
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (ip_packet_generator "ip_packet_generator.cpp" "ip_packet_generator.h")
+add_executable (ip_packet_generator "ip_packet_generator.cpp" "ip_packet_generator.h" "CMDA.h" "CMDA.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ip_packet_generator PROPERTY CXX_STANDARD 20)
