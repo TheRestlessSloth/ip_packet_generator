@@ -37,7 +37,7 @@ private:
 	string ip_src_str = iparr_to_str(ip_src);
 	string ip_dest_str = iparr_to_str(ip_src);
 
-	string DATA = "Hey-hey-heeeey!";
+	string DATA = "test data for Konstantin Georgievich";
 public:
 
 	string iparr_to_str(unsigned char int_ip[])
@@ -112,6 +112,8 @@ int main()
 	cdma.generate_gold_sequence(0);
 	cdma.add_user();
 	ip_packet a;
+	a.ShowIPFields();
+	cout << "--------------------------------------\nBin data = ";
 	bitarr packet = a.ipPacket_bin();
 	packet.set(); //установка всех битов в 1, чтобы при XOR получить нулевой бит
 	bitarr encrypted_packet = cdma.encode_packet(packet); //шифрование IP пакета
